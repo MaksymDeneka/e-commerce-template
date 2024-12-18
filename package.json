@@ -9,9 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@hookform/resolvers": "^3.9.1",
+    "@oslojs/crypto": "^1.0.1",
+    "@oslojs/encoding": "^1.1.0",
+    "@prisma/client": "^6.1.0",
     "@radix-ui/react-label": "^2.1.1",
     "@radix-ui/react-navigation-menu": "^1.2.3",
     "@radix-ui/react-slot": "^1.1.1",
+    "@radix-ui/react-toast": "^1.2.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^0.468.0",
@@ -19,7 +24,10 @@
     "prisma": "^6.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "tailwind-merge": "^2.5.5"
+    "react-hook-form": "^7.54.1",
+    "tailwind-merge": "^2.5.5",
+    "zod": "3.24.1",
+    "zsa-react": "^0.2.3"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
