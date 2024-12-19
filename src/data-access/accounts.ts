@@ -28,3 +28,12 @@ export async function createAccount(userId: string, password: string) {
 
   return account;
 }
+
+export async function getAccountByUserId(userId: string) {
+  const account = await prisma.accounts.findFirst({
+    where: {
+      userId: userId,
+    },
+  });
+  return account;
+}
