@@ -17,6 +17,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useServerAction } from 'zsa-react';
+import { signUpAction } from './actions';
 
 const registrationSchema = z
   .object({
@@ -121,7 +122,7 @@ export default function RegisterPage() {
           {error && (
             <Alert variant="destructive">
               {/* <Terminal className="h-4 w-4" /> */}
-              <AlertTitle>Uh-oh, we couldn&apos;t log you in</AlertTitle>
+              <AlertTitle>Uh-oh, we couldn&apos;t sign you up</AlertTitle>
               <AlertDescription>{error.message}</AlertDescription>
             </Alert>
           )}

@@ -1,25 +1,25 @@
 'use server';
 
-import { afterLoginUrl } from '@/app-config';
-import { setSession } from '@/lib/sessions';
-import { redirect } from 'next/navigation';
 import { z } from 'zod';
+import { redirect } from 'next/navigation';
+import { registerUserUseCase } from '@/use-cases/users';
+import { afterLoginUrl } from '@/app-config';
+import { setSession } from '@/lib/session';
+import { unauthenticatedAction } from '@/lib/safe-action';
+import { rateLimitByIp } from '@/lib/limiter';
 
-const inputSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(8),
-});
 
-
-export async function signUpAction(input: z.infer<typeof inputSchema>) {
-  const validatedInput = inputSchema.parse(input);
-
-  // Register user
-  const user = await registerUserUseCase(validatedInput.email, validatedInput.password);
-
-  // Set session
-  await setSession(user.id);
-
-  // Redirect
-  redirect(afterLoginUrl);
-}
+export const signUpAction = unauthenticatedAction
+  .createServerAction()
+  .input(
+    z.object({
+      email: z.string().email(),
+      password: z.string().min(8),
+    })
+  )
+  .handler(async ({ input }) => {
+    await rateLimitByIp({ key: "register", limit: 3, window: 30000 });
+    const user = await registerUserUseCase(input.email, input.password);
+    await setSession(user.id);
+    return redirect(afterLoginUrl);
+  });

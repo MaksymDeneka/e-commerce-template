@@ -15,7 +15,7 @@ import {
 
 export default function Navigation() {
   return (
-    <header className='flex justify-center items-center py-3 px-5'>
+    <header className="flex justify-center items-center py-3 px-5">
       <div className="flex justify-between items-center max-w-screen-2xl w-full">
         <Image src="/images/Logo.svg" width={100} height={75} priority alt="logo" />
         <nav>
@@ -44,7 +44,7 @@ export default function Navigation() {
         </nav>
         <div>
           <Button asChild>
-            <Link href="/login">Login</Link>
+            <Link href="/sign-up">Sign Up</Link>
           </Button>
         </div>
       </div>
