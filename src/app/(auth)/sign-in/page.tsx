@@ -14,8 +14,8 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-// import { pageTitleStyles } from "@/styles/common";
-// import { cn } from '@/lib/utils';
+import { pageTitleStyles } from '@/styles/common';
+import { cn } from '@/lib/utils';
 import { useServerAction } from 'zsa-react';
 import Link from 'next/link';
 import { useToast } from '@/hooks/use-toast';
@@ -62,7 +62,7 @@ export default function SignInPage() {
 
   return (
     <div className="py-24 mx-auto max-w-[400px] space-y-6">
-      {/* <h1 className={cn(pageTitleStyles, "text-center")}>Sign In</h1> */}
+      <h1 className={cn(pageTitleStyles, "text-center")}>Sign In</h1>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">

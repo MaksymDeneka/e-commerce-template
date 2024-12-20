@@ -18,6 +18,8 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useServerAction } from 'zsa-react';
 import { signUpAction } from './actions';
+import { cn } from '@/lib/utils';
+import { pageTitleStyles } from '@/styles/common';
 
 const registrationSchema = z
   .object({
@@ -58,7 +60,7 @@ export default function RegisterPage() {
 
   return (
     <div className="py-24 mx-auto max-w-[400px] space-y-6">
-      {/* <h1 className={cn(pageTitleStyles, "text-center")}>Sign Up</h1> */}
+      <h1 className={cn(pageTitleStyles, 'text-center')}>Sign Up</h1>
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
