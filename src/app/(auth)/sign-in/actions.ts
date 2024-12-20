@@ -1,3 +1,5 @@
+"use server"
+
 import { afterLoginUrl } from "@/app-config";
 import { rateLimitByIp } from "@/lib/limiter";
 import { unauthenticatedAction } from "@/lib/safe-action";
