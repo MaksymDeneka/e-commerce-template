@@ -24,35 +24,11 @@ enum AccountType {
   GOOGLE
 }
 
-// model Users {
-//   id                    String     @id @default(cuid())
-//   email                 String     @unique
-//   hash                  String?
-// 	salt                  String?
-// 	accountType           AccountType @default(EMAIL)
-//   role                  UserRole   @default(USER)
-//   // firstName             String?
-//   // lastName              String?
-//   // emailVerified         DateTime?  // For email verification
-//   // lastLogin             DateTime?  // Track login activity
-//   // failedLoginAttempts   Int        @default(0)
-//   // lastFailedLoginAt     DateTime?
-//   createdAt             DateTime   @default(now())
-//   // updatedAt             DateTime   @updatedAt
-
-//   sessions              Session[]
-// }
-
-// // Optional: Add session management
-// model Session {
-//   id        String   @unique
-//   userId    String
-//   user      Users     @relation(fields: [userId], references: [id], onDelete: Cascade)
-//   expiresAt DateTime
-//   createdAt DateTime @default(now())
-
-//   @@index([userId])
-// }
+enum Category {
+	CATEGORY1
+	CATEGORY2
+	CATEGORY3
+}
 
 model Users {
   id            String     @id @default(cuid())
@@ -82,4 +58,11 @@ model Sessions {
   expiresAt DateTime
 
   @@index([userId])
+}
+
+model Product {
+	id           String @id @default(cuid())
+	title        String
+	description  String
+	category     Category
 }
