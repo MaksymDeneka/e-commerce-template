@@ -17,26 +17,70 @@ export default function Navigation() {
   return (
     <header className="flex justify-center items-center py-3 px-5">
       <div className="flex justify-between items-center max-w-screen-2xl w-full">
-        <Image src="/images/Logo.svg" width={100} height={75} priority alt="logo" />
+        <Link href="/">
+          <Image src="/images/Logo.svg" width={100} height={75} priority alt="logo" />
+        </Link>
         <nav>
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
+                <NavigationMenuTrigger>Category One</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <NavigationMenuLink>Link</NavigationMenuLink>
+                  <div className="grid grid-cols-3 w-80">
+                    <NavigationMenuLink href="/">item1</NavigationMenuLink>
+                    <NavigationMenuLink href="/">item1</NavigationMenuLink>
+                    <NavigationMenuLink href="/">item1</NavigationMenuLink>
+                    <NavigationMenuLink href="/">item1</NavigationMenuLink>
+                    <NavigationMenuLink href="/">item1</NavigationMenuLink>
+                    <NavigationMenuLink href="/">item1</NavigationMenuLink>
+                    <NavigationMenuLink href="/">item1</NavigationMenuLink>
+                  </div>
+                  <Image
+                    src="/images/category-drop-down.svg"
+                    alt="category-drop-down"
+                    width={100}
+                    height={100}
+                  />
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
+                <NavigationMenuTrigger>Category Two</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <NavigationMenuLink>Link</NavigationMenuLink>
+                  <div className="grid grid-cols-3 w-80">
+                    <NavigationMenuLink href="/">item2</NavigationMenuLink>
+                    <NavigationMenuLink href="/">item2</NavigationMenuLink>
+                    <NavigationMenuLink href="/">item2</NavigationMenuLink>
+                    <NavigationMenuLink href="/">item2</NavigationMenuLink>
+                    <NavigationMenuLink href="/">item2</NavigationMenuLink>
+                    <NavigationMenuLink href="/">item2</NavigationMenuLink>
+                    <NavigationMenuLink href="/">item2</NavigationMenuLink>
+                  </div>
+                  <Image
+                    src="/images/category-drop-down.svg"
+                    alt="category-drop-down"
+                    width={100}
+                    height={100}
+                  />
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuTrigger>Item One</NavigationMenuTrigger>
+                <NavigationMenuTrigger>Category Three</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <NavigationMenuLink>Link</NavigationMenuLink>
+                  <div className="grid grid-cols-3 w-80">
+                    <NavigationMenuLink href="/">item3</NavigationMenuLink>
+                    <NavigationMenuLink href="/">item3</NavigationMenuLink>
+                    <NavigationMenuLink href="/">item3</NavigationMenuLink>
+                    <NavigationMenuLink href="/">item3</NavigationMenuLink>
+                    <NavigationMenuLink href="/">item3</NavigationMenuLink>
+                    <NavigationMenuLink href="/">item3</NavigationMenuLink>
+                    <NavigationMenuLink href="/">item3</NavigationMenuLink>
+                  </div>
+                  <Image
+                    src="/images/category-drop-down.svg"
+                    alt="category-drop-down"
+                    width={100}
+                    height={100}
+                  />
                 </NavigationMenuContent>
               </NavigationMenuItem>
             </NavigationMenuList>
