@@ -13,7 +13,7 @@ export const accountTypeEnum = pgEnum('type', ['email', 'google']);
 
 export const users = pgTable('gf_user', {
   id: serial('id').primaryKey(),
-  email: text('email').notNull()
+  email: text('email').notNull().unique()
 });
 
 export const accounts = pgTable(
@@ -49,5 +49,5 @@ export const sessions = pgTable(
 );
 
 
-
+export type User = typeof users.$inferSelect;
 export type Session = typeof sessions.$inferSelect;
