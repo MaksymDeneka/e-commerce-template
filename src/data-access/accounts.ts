@@ -1,39 +1,30 @@
 import crypto from 'crypto';
 import { hashPassword } from './utils';
-import prisma from '@/db/prisma';
+import { database } from '@/db';
+import { accounts } from '@/db/schema';
+import { eq } from 'drizzle-orm';
 
-export async function createAccount(userId: string, password: string) {
+export async function createAccount(userId: number, password: string) {
   const salt = crypto.randomBytes(128).toString('base64');
   const hash = await hashPassword(password, salt);
 
-  const account = await prisma.accounts.create({
-    data: {
+  const [account] = await database
+    .insert(accounts)
+    .values({
       userId,
-      accountType: 'EMAIL',
+      accountType: 'email',
+      role: 'user',
       password: hash,
       salt,
-    },
-    // select: {
-    //   id: true,
-    //   userId: true,
-    //   accountType: true,
-    //   user: {
-    //     select: {
-    //       email: true,
-    //       role: true,
-    //     },
-    //   },
-    // },
-  });
-
+    })
+    .returning();
   return account;
 }
 
-export async function getAccountByUserId(userId: string) {
-  const account = await prisma.accounts.findFirst({
-    where: {
-      userId: userId,
-    },
+export async function getAccountByUserId(userId: number) {
+  const account = await database.query.accounts.findFirst({
+    where: eq(accounts.userId, userId),
   });
+
   return account;
 }
