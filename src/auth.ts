@@ -1,4 +1,5 @@
 import { database } from './db';
+import { env } from '@/env';
 import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from '@oslojs/encoding';
 import { sha256 } from '@oslojs/crypto/sha2';
 import { getSessionToken } from './lib/session';
@@ -8,6 +9,12 @@ import { eq } from 'drizzle-orm';
 
 const SESSION_REFRESH_INTERVAL_MS = 1000 * 60 * 60 * 24 * 15;
 const SESSION_MAX_DURATION_MS = SESSION_REFRESH_INTERVAL_MS * 2;
+
+export const googleAuth = Google(
+	env.GOOGLE_CLIENT_ID,
+	env.GOOGLE_CLIENT_SECRET,
+	`${env.HOST_NAME}/api/login/google/callback`,
+)
 
 export function generateSessionToken(): string {
   const bytes = new Uint8Array(20);
