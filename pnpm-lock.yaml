@@ -17,9 +17,6 @@ importers:
       '@oslojs/encoding':
         specifier: ^1.1.0
         version: 1.1.0
-      '@prisma/client':
-        specifier: ^6.1.0
-        version: 6.1.0(prisma@6.0.1)
       '@radix-ui/react-label':
         specifier: ^2.1.1
         version: 2.1.1(@types/react-dom@19.0.2(@types/react@19.0.1))(@types/react@19.0.1)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -56,9 +53,6 @@ importers:
       postgres:
         specifier: ^3.4.5
         version: 3.4.5
-      prisma:
-        specifier: ^6.0.1
-        version: 6.0.1
       react:
         specifier: ^19.0.0
         version: 19.0.0
@@ -2908,10 +2902,13 @@ snapshots:
   '@prisma/client@6.1.0(prisma@6.0.1)':
     optionalDependencies:
       prisma: 6.0.1
+    optional: true
 
-  '@prisma/debug@6.0.1': {}
+  '@prisma/debug@6.0.1':
+    optional: true
 
-  '@prisma/engines-version@5.23.0-27.5dbef10bdbfb579e07d35cc85fb1518d357cb99e': {}
+  '@prisma/engines-version@5.23.0-27.5dbef10bdbfb579e07d35cc85fb1518d357cb99e':
+    optional: true
 
   '@prisma/engines@6.0.1':
     dependencies:
@@ -2919,16 +2916,19 @@ snapshots:
       '@prisma/engines-version': 5.23.0-27.5dbef10bdbfb579e07d35cc85fb1518d357cb99e
       '@prisma/fetch-engine': 6.0.1
       '@prisma/get-platform': 6.0.1
+    optional: true
 
   '@prisma/fetch-engine@6.0.1':
     dependencies:
       '@prisma/debug': 6.0.1
       '@prisma/engines-version': 5.23.0-27.5dbef10bdbfb579e07d35cc85fb1518d357cb99e
       '@prisma/get-platform': 6.0.1
+    optional: true
 
   '@prisma/get-platform@6.0.1':
     dependencies:
       '@prisma/debug': 6.0.1
+    optional: true
 
   '@radix-ui/primitive@1.1.1': {}
 
@@ -4437,6 +4437,7 @@ snapshots:
       '@prisma/engines': 6.0.1
     optionalDependencies:
       fsevents: 2.3.3
+    optional: true
 
   prop-types@15.8.1:
     dependencies:
