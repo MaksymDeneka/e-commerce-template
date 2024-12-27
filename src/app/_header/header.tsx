@@ -13,15 +13,19 @@ import {
   // NavigationMenuViewport,
 } from '@/components/ui/navigation-menu';
 import { getCurrentUser } from '@/lib/session';
+
+import { Avatar, AvatarImage } from '@/components/ui/avatar';
+import { CreditCard, Settings2Icon, User } from 'lucide-react';
+import { SignOutItem } from './sign-out-item';
 import {
   DropdownMenu,
   DropdownMenuContent,
+  DropdownMenuGroup,
   DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@radix-ui/react-dropdown-menu';
-import { Avatar, AvatarImage } from '@/components/ui/avatar';
-import { Settings2Icon } from 'lucide-react';
-import { SignOutItem } from './sign-out-item';
+} from '@/components/ui/dropdown-menu';
 
 export default function Navigation() {
   return (
@@ -109,7 +113,7 @@ async function ProfileAvatar() {
   // const profile = await getUserProfileUseCase(userId);
 
   return (
-    <Avatar>
+    <Avatar className="w-12 h-12">
       <AvatarImage src="images/icons/avatar.jpg" />
       {/* <AvatarImage src={getProfileImageFullUrl(profile)} /> */}
       {/* <AvatarFallback>
@@ -127,29 +131,34 @@ async function HeaderActions() {
     <>
       {isSignedIn ? (
         <>
-          {/* <Suspense>
-            <NotificationsWrapper />
-          </Suspense> */}
-
           <DropdownMenu>
-            <DropdownMenuTrigger>
-              {/* <Suspense
-                fallback={
-                  <div className="bg-gray-800 rounded-full h-10 w-10 shrink-0 flex items-center justify-center">
-                    ..
-                  </div>
-                }
-              > */}
+            <DropdownMenuTrigger className=" focus:outline-none">
               <ProfileAvatar />
-              {/* </Suspense> */}
             </DropdownMenuTrigger>
-            <DropdownMenuContent className="space-y-2">
-              <DropdownMenuItem asChild>
-                <Link href="/dashboard/settings" className="flex gap-2 items-center cursor-pointer">
-                  <Settings2Icon className="w-4 h-4" /> Settings
-                </Link>
-              </DropdownMenuItem>
-              <SignOutItem />
+            <DropdownMenuContent>
+              <DropdownMenuLabel>My Account</DropdownMenuLabel>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem asChild>
+                  <Link href="/" className="flex">
+                    <User />
+                    Profile
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/" className="flex">
+                    <CreditCard />
+                    Billing
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/" className="flex">
+                    <Settings2Icon /> Settings
+                  </Link>
+                </DropdownMenuItem>
+
+                <SignOutItem />
+              </DropdownMenuGroup>
             </DropdownMenuContent>
           </DropdownMenu>
 
@@ -159,7 +168,7 @@ async function HeaderActions() {
         </>
       ) : (
         <>
-          <Button asChild variant="secondary">
+          <Button asChild>
             <Link href="/sign-in">Sign In</Link>
           </Button>
         </>
