@@ -15,7 +15,7 @@ import {
 import { getCurrentUser } from '@/lib/session';
 
 import { Avatar, AvatarImage } from '@/components/ui/avatar';
-import { CreditCard, Settings2Icon, User } from 'lucide-react';
+import { CreditCard, House, Settings2Icon, User } from 'lucide-react';
 import { SignOutItem } from './sign-out-item';
 import {
   DropdownMenu,
@@ -149,6 +149,12 @@ async function HeaderActions() {
                   <Link href="/" className="flex">
                     <CreditCard />
                     Billing
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href="/" className="flex">
+                    <House />
+                    Address
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
