@@ -8,7 +8,6 @@ import { signInUseCase } from "@/use-cases/users";
 import { redirect } from "next/navigation";
 import { z } from "zod";
 
-
 export const signInAction = unauthenticatedAction
 		.createServerAction()
 		.input(

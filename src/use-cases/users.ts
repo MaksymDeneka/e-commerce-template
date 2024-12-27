@@ -39,7 +39,5 @@ export async function createGoogleUserUseCase(googleUser: GoogleUser) {
 
   await createAccountViaGoogle(existingUser.id, googleUser.sub);
 
-  // await createProfile(existingUser.id, googleUser.name, googleUser.picture);
-
   return existingUser.id;
 }

@@ -3,15 +3,6 @@ import { Roboto } from 'next/font/google';
 import './globals.css';
 import Navigation from './_header/header';
 
-// const geistSans = Geist({
-//   variable: "--font-geist-sans",
-//   subsets: ["latin"],
-// });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
 const roboto = Roboto({
   variable: '--font-roboto',
   subsets: ['latin'],

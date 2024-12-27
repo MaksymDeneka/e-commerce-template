@@ -20,6 +20,7 @@ import { useServerAction } from 'zsa-react';
 import { signUpAction } from './actions';
 import { cn } from '@/lib/utils';
 import { pageTitleStyles } from '@/styles/common';
+import { Terminal } from 'lucide-react';
 
 const registrationSchema = z
   .object({
@@ -123,7 +124,7 @@ export default function RegisterPage() {
 
           {error && (
             <Alert variant="destructive">
-              {/* <Terminal className="h-4 w-4" /> */}
+              <Terminal className="h-4 w-4" />
               <AlertTitle>Uh-oh, we couldn&apos;t sign you up</AlertTitle>
               <AlertDescription>{error.message}</AlertDescription>
             </Alert>
