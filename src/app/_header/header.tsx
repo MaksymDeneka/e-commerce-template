@@ -18,7 +18,7 @@ export default function Navigation() {
     <header className="flex justify-center items-center py-3 px-5">
       <div className="flex justify-between items-center max-w-screen-2xl w-full">
         <Link href="/">
-          <Image src="/images/Logo.svg" width={100} height={75} priority alt="logo" />
+          <Image src="/images/logo.png" width={50} height={50} priority alt="logo" />
         </Link>
         <nav>
           <NavigationMenu>
