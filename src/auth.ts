@@ -1,5 +1,6 @@
 import { database } from './db';
 import { env } from '@/env';
+import { Google } from 'arctic';
 import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from '@oslojs/encoding';
 import { sha256 } from '@oslojs/crypto/sha2';
 import { getSessionToken } from './lib/session';
@@ -10,11 +11,11 @@ import { eq } from 'drizzle-orm';
 const SESSION_REFRESH_INTERVAL_MS = 1000 * 60 * 60 * 24 * 15;
 const SESSION_MAX_DURATION_MS = SESSION_REFRESH_INTERVAL_MS * 2;
 
-export const googleAuth = Google(
-	env.GOOGLE_CLIENT_ID,
-	env.GOOGLE_CLIENT_SECRET,
-	`${env.HOST_NAME}/api/login/google/callback`,
-)
+export const googleAuth = new Google(
+  env.GOOGLE_CLIENT_ID,
+  env.GOOGLE_CLIENT_SECRET,
+  `${env.HOST_NAME}/api/login/google/callback`,
+);
 
 export function generateSessionToken(): string {
   const bytes = new Uint8Array(20);
@@ -45,26 +46,25 @@ export async function validateRequest(): Promise<SessionValidationResult> {
 
 export async function validateSessionToken(token: string): Promise<SessionValidationResult> {
   const sessionId = encodeHexLowerCase(sha256(new TextEncoder().encode(token)));
-	const sessionInDb = await database.query.sessions.findFirst({
-		where: eq(sessions.id, sessionId)
-	})
+  const sessionInDb = await database.query.sessions.findFirst({
+    where: eq(sessions.id, sessionId),
+  });
 
   if (!sessionInDb) {
     return { session: null, user: null };
   }
 
   if (Date.now() >= sessionInDb.expiresAt.getTime()) {
-    await database.delete(sessions).where(eq(sessions.id, sessionInDb.id))
+    await database.delete(sessions).where(eq(sessions.id, sessionInDb.id));
     return { session: null, user: null };
   }
 
-	const user = await database.query.users.findFirst({
-		where: eq(users.id, sessionInDb.userId)
-	});
-
+  const user = await database.query.users.findFirst({
+    where: eq(users.id, sessionInDb.userId),
+  });
 
   if (!user) {
-		await database.delete(sessions).where(eq(sessions.id, sessionInDb.id))
+    await database.delete(sessions).where(eq(sessions.id, sessionInDb.id));
     return { session: null, user: null };
   }
 

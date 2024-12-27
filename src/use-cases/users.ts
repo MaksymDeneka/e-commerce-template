@@ -1,6 +1,7 @@
 import { createUser, getUserByEmail, verifyPassword } from '@/data-access/users';
 import { LoginError, PublicError } from './errors';
-import { createAccount } from '@/data-access/accounts';
+import { createAccount, createAccountViaGoogle } from '@/data-access/accounts';
+import { GoogleUser } from '@/app/api/login/google/callback/route';
 
 export async function registerUserUseCase(email: string, password: string) {
   const existingUser = await getUserByEmail(email);
@@ -27,4 +28,18 @@ export async function signInUseCase(email: string, password: string) {
   }
 
   return { id: user.id };
+}
+
+export async function createGoogleUserUseCase(googleUser: GoogleUser) {
+  let existingUser = await getUserByEmail(googleUser.email);
+
+  if (!existingUser) {
+    existingUser = await createUser(googleUser.email);
+  }
+
+  await createAccountViaGoogle(existingUser.id, googleUser.sub);
+
+  // await createProfile(existingUser.id, googleUser.name, googleUser.picture);
+
+  return existingUser.id;
 }
