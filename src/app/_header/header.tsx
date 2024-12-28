@@ -26,6 +26,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import MobileMenu from './mobile-menu';
 
 export default function Navigation() {
   return (
@@ -34,7 +35,7 @@ export default function Navigation() {
         <Link href="/">
           <Image src="/images/logo.png" width={50} height={50} priority alt="logo" />
         </Link>
-        <nav>
+        <nav className='hidden md:block'>
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -100,9 +101,9 @@ export default function Navigation() {
             </NavigationMenuList>
           </NavigationMenu>
         </nav>
-        <div>
-          <HeaderActions />
-        </div>
+
+        <HeaderActions />
+        <MobileMenu />
       </div>
     </header>
   );
@@ -130,12 +131,12 @@ async function HeaderActions() {
   return (
     <>
       {isSignedIn ? (
-        <>
+        <div className="hidden md:block">
           <DropdownMenu>
             <DropdownMenuTrigger className=" focus:outline-none">
               <ProfileAvatar />
             </DropdownMenuTrigger>
-            <DropdownMenuContent className='mr-5'>
+            <DropdownMenuContent className="mr-5">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
@@ -171,7 +172,7 @@ async function HeaderActions() {
           {/* <div className="md:hidden">
             <MenuButton />
           </div> */}
-        </>
+        </div>
       ) : (
         <>
           <Button asChild>
