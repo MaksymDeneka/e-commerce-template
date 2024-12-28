@@ -16,7 +16,7 @@ export default function AccoutSideBar({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex justify-center items-center sidebar-content-h overflow-hidden">
+    <div className="flex justify-center sidebar-content-h overflow-hidden">
       <SidebarProvider
         className="max-w-screen-2xl"
         style={
