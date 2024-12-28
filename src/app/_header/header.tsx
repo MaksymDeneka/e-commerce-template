@@ -29,7 +29,7 @@ import {
 
 export default function Navigation() {
   return (
-    <header className="flex justify-center items-center py-3 px-5">
+    <header className="sticky top-0 bg-white flex justify-center items-center py-3 px-5 z-50">
       <div className="flex justify-between items-center max-w-screen-2xl w-full">
         <Link href="/">
           <Image src="/images/logo.png" width={50} height={50} priority alt="logo" />
@@ -135,12 +135,12 @@ async function HeaderActions() {
             <DropdownMenuTrigger className=" focus:outline-none">
               <ProfileAvatar />
             </DropdownMenuTrigger>
-            <DropdownMenuContent>
+            <DropdownMenuContent className='mr-5'>
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
               <DropdownMenuSeparator />
               <DropdownMenuGroup>
                 <DropdownMenuItem asChild>
-                  <Link href="/" className="flex">
+                  <Link href="/account" className="flex">
                     <User />
                     Profile
                   </Link>
