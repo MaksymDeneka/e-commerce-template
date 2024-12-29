@@ -35,7 +35,7 @@ export default function Navigation() {
         <Link href="/">
           <Image src="/images/logo.png" width={50} height={50} priority alt="logo" />
         </Link>
-        <nav className='hidden md:block'>
+        <nav className="hidden md:block">
           <NavigationMenu>
             <NavigationMenuList>
               <NavigationMenuItem>
@@ -103,18 +103,23 @@ export default function Navigation() {
         </nav>
 
         <HeaderActions />
-        <MobileMenu />
+        <div className='flex gap-x-5'>
+          <Link href="/account">
+            <ProfileAvatar size="small"/>
+          </Link>
+          <MobileMenu />
+        </div>
       </div>
     </header>
   );
 }
 
-async function ProfileAvatar() {
+async function ProfileAvatar({size} : {size?: string}) {
   // async function ProfileAvatar({ userId }: { userId: number }) {
   // const profile = await getUserProfileUseCase(userId);
 
   return (
-    <Avatar className="w-12 h-12">
+    <Avatar className={`${size == "small" ? "w-8 h-8" : "w-12 h-12"}`}>
       <AvatarImage src="images/icons/avatar.jpg" />
       {/* <AvatarImage src={getProfileImageFullUrl(profile)} /> */}
       {/* <AvatarFallback>

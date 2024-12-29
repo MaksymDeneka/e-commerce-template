@@ -3,7 +3,6 @@ import { GalleryVerticalEnd, Heart, Inbox, Search, Truck } from 'lucide-react';
 
 import {
   Sidebar,
-  SidebarContent,
   SidebarHeader,
   SidebarMenu,
   SidebarMenuButton,
@@ -69,7 +68,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
           ))}
         </SidebarMenu>
       </SidebarHeader>
-      <SidebarContent></SidebarContent>
     </Sidebar>
   );
 }
