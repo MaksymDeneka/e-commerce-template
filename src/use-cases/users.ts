@@ -2,6 +2,8 @@ import { createUser, getUserByEmail, verifyPassword } from '@/data-access/users'
 import { LoginError, PublicError } from './errors';
 import { createAccount, createAccountViaGoogle } from '@/data-access/accounts';
 import { GoogleUser } from '@/app/api/login/google/callback/route';
+import { UserId } from './types';
+import { createProfile, getProfile, updateProfile } from '@/data-access/profiles';
 
 export async function registerUserUseCase(email: string, password: string) {
   const existingUser = await getUserByEmail(email);
@@ -40,4 +42,55 @@ export async function createGoogleUserUseCase(googleUser: GoogleUser) {
   await createAccountViaGoogle(existingUser.id, googleUser.sub);
 
   return existingUser.id;
+}
+
+// export async function getProfileUseCase(userId: UserId) {
+//   const profile = await getProfile(userId);
+
+//   if (!profile) {
+//     throw new PublicError("User not found");
+//   }
+
+//   return profile;
+// }
+
+// export async function updateProfileUseCase(
+//   userId: UserId,
+//   firstName: string,
+//   lastName: string,
+//   phoneNumber: string,
+// ) {
+//   await updateProfile(userId, { firstName, lastName, phoneNumber });
+// }
+// export async function createProfileUseCase(
+//   userId: UserId,
+//   firstName: string,
+//   lastName: string,
+//   phoneNumber: string,
+// ) {
+//   await createProfile(userId, firstName, lastName, phoneNumber);
+// }
+
+export async function getProfileUseCase(userId: UserId) {
+  const profile = await getProfile(userId);
+  // Changed to return null instead of throwing error for profile check
+  return profile;
+}
+
+export async function updateProfileUseCase(
+  userId: UserId,
+  firstName: string,
+  lastName: string,
+  phoneNumber: string,
+) {
+  return await updateProfile(userId, { firstName, lastName, phoneNumber });
+}
+
+export async function createProfileUseCase(
+  userId: UserId,
+  firstName: string,
+  lastName: string,
+  phoneNumber: string,
+) {
+  return await createProfile(userId, firstName, lastName, phoneNumber);
 }

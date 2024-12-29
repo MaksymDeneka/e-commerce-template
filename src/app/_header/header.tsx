@@ -102,12 +102,12 @@ export default function Navigation() {
           </NavigationMenu>
         </nav>
 
-        <HeaderActions />
         <div className='flex gap-x-5'>
           <Link href="/account">
             <ProfileAvatar size="small"/>
           </Link>
           <MobileMenu />
+        <HeaderActions />
         </div>
       </div>
     </header>
@@ -119,7 +119,7 @@ async function ProfileAvatar({size} : {size?: string}) {
   // const profile = await getUserProfileUseCase(userId);
 
   return (
-    <Avatar className={`${size == "small" ? "w-8 h-8" : "w-12 h-12"}`}>
+    <Avatar className={`${size == "small" ? "w-8 h-8 md:hidden" : "w-12 h-12"}`}>
       <AvatarImage src="images/icons/avatar.jpg" />
       {/* <AvatarImage src={getProfileImageFullUrl(profile)} /> */}
       {/* <AvatarFallback>

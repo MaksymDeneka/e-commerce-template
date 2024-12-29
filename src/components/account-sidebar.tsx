@@ -1,3 +1,5 @@
+"use client"
+
 import * as React from 'react';
 import { GalleryVerticalEnd, Heart, Inbox, Search, Truck } from 'lucide-react';
 
@@ -9,18 +11,19 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+
 
 const data = {
   navMain: [
     {
       title: 'Personal information',
-      url: '#',
+      url: '/account/profile',
       icon: Search,
-      isActive: true,
     },
     {
       title: 'Orders',
-      url: '#',
+      url: '/account/orders',
       icon: Truck,
     },
     {
@@ -38,8 +41,10 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+	const pathname = usePathname();
+
   return (
-    <Sidebar variant="floating" className="mt-20" {...props}>
+    <Sidebar variant="floating" className="mt-[4.5rem]" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -58,11 +63,11 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           {data.navMain.map((item) => (
             <SidebarMenuItem key={item.title}>
-              <SidebarMenuButton asChild isActive={item.isActive}>
-                <a href={item.url}>
+              <SidebarMenuButton asChild isActive={pathname == item.url}>
+                <Link href={item.url}>
                   <item.icon />
                   <span>{item.title}</span>
-                </a>
+                </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
