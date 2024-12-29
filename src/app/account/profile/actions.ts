@@ -2,6 +2,7 @@
 
 import { authenticatedAction } from '@/lib/safe-action';
 import { createProfileUseCase, getProfileUseCase, updateProfileUseCase } from '@/use-cases/users';
+import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
 export const updateProfileAction = authenticatedAction
@@ -14,18 +15,11 @@ export const updateProfileAction = authenticatedAction
     }),
   )
   .handler(async ({ input, ctx }) => {
-    // const existingProfile = await getProfileUseCase(ctx.user.id);
-    // if (existingProfile) {
-    //   await updateProfileUseCase(ctx.user.id, input.firstName, input.lastName, input.phoneNumber);
-    // } else {
-    //   await createProfileUseCase(ctx.user.id, input.firstName, input.lastName, input.phoneNumber);
-    // }
-
     const existingProfile = await getProfileUseCase(ctx.user.id);
-
     if (existingProfile) {
       await updateProfileUseCase(ctx.user.id, input.firstName, input.lastName, input.phoneNumber);
     } else {
       await createProfileUseCase(ctx.user.id, input.firstName, input.lastName, input.phoneNumber);
     }
+    revalidatePath('/account/profile');
   });

@@ -1,14 +1,23 @@
-"use client"
+'use client';
 
-import { useToast } from "@/hooks/use-toast";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { z } from "zod";
-import { useServerAction } from "zsa-react";
-import { updateProfileAction } from "./actions";
-import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
-import { LoaderButton } from "@/components/loader-button";
+import { useToast } from '@/hooks/use-toast';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { z } from 'zod';
+import { useServerAction } from 'zsa-react';
+import { updateProfileAction } from './actions';
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form';
+import { Input } from '@/components/ui/input';
+import { LoaderButton } from '@/components/loader-button';
+import { useRouter } from 'next/navigation';
+
 
 const updateProfileSchema = z.object({
   firstName: z.string().min(1),
@@ -16,56 +25,48 @@ const updateProfileSchema = z.object({
   phoneNumber: z.string().min(1),
 });
 
-// interface Profile {
-// 	firstName?: string,
-//   lastName?: string,
-//   phoneNumber?: string,
-// }
+type ProfileUpdate = z.infer<typeof updateProfileSchema>;
 
-export function ProfileForm() {
+export function ProfileForm(props: ProfileUpdate) {
+  const { firstName, lastName, phoneNumber } = props;
   const { toast } = useToast();
+	const router = useRouter()
 
-  const form = useForm<z.infer<typeof updateProfileSchema>>({
+  const form = useForm<ProfileUpdate>({
     resolver: zodResolver(updateProfileSchema),
     defaultValues: {
-      firstName: "",
-			lastName: "",
-			phoneNumber: ""
+      firstName: firstName,
+      lastName: lastName,
+      phoneNumber: phoneNumber,
     },
   });
 
-  const { execute: updateProfile, isPending } = useServerAction(
-    updateProfileAction,
-    {
-      onSuccess: () => {
-        toast({
-          title: "Info Updated",
-          description: "Info updated successfully.",
-        });
-        form.reset();
-      },
-      onError: ({ err }) => {
-        toast({
-          title: "Error",
-          description: err.message || "Failed to update personal information.",
-          variant: "destructive",
-        });
-      },
-    }
-  );
+  const { execute: updateProfile, isPending } = useServerAction(updateProfileAction, {
+    onSuccess: () => {
+      toast({
+        title: 'Info Updated',
+        description: 'Info updated successfully.',
+      });
+      router.refresh()
+    },
+    onError: ({ err }) => {
+      toast({
+        title: 'Error',
+        description: err.message || 'Failed to update personal information.',
+        variant: 'destructive',
+      });
+    },
+  });
 
-  const onSubmit: SubmitHandler<z.infer<typeof updateProfileSchema>> = (
-    values
-  ) => {
-    updateProfile(values);
+  const onSubmit: SubmitHandler<z.infer<typeof updateProfileSchema>> = async (values) => {
+    await updateProfile(values);
   };
 
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="space-y-3 flex flex-col gap-2 max-w-72"
-      >
+        className="space-y-3 flex flex-col gap-2 max-w-72">
         <FormField
           control={form.control}
           name="firstName"

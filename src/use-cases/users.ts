@@ -46,29 +46,13 @@ export async function createGoogleUserUseCase(googleUser: GoogleUser) {
 
 // export async function getProfileUseCase(userId: UserId) {
 //   const profile = await getProfile(userId);
-
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //   if (!profile) {
 //     throw new PublicError("User not found");
 //   }
+//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 //   return profile;
-// }
-
-// export async function updateProfileUseCase(
-//   userId: UserId,
-//   firstName: string,
-//   lastName: string,
-//   phoneNumber: string,
-// ) {
-//   await updateProfile(userId, { firstName, lastName, phoneNumber });
-// }
-// export async function createProfileUseCase(
-//   userId: UserId,
-//   firstName: string,
-//   lastName: string,
-//   phoneNumber: string,
-// ) {
-//   await createProfile(userId, firstName, lastName, phoneNumber);
 // }
 
 export async function getProfileUseCase(userId: UserId) {
@@ -83,7 +67,7 @@ export async function updateProfileUseCase(
   lastName: string,
   phoneNumber: string,
 ) {
-  return await updateProfile(userId, { firstName, lastName, phoneNumber });
+  await updateProfile(userId, { firstName, lastName, phoneNumber });
 }
 
 export async function createProfileUseCase(
@@ -92,5 +76,5 @@ export async function createProfileUseCase(
   lastName: string,
   phoneNumber: string,
 ) {
-  return await createProfile(userId, firstName, lastName, phoneNumber);
+  await createProfile(userId, firstName, lastName, phoneNumber);
 }

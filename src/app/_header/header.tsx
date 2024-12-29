@@ -13,9 +13,7 @@ import {
   // NavigationMenuViewport,
 } from '@/components/ui/navigation-menu';
 import { getCurrentUser } from '@/lib/session';
-
-import { Avatar, AvatarImage } from '@/components/ui/avatar';
-import { CreditCard, House, Settings2Icon, User } from 'lucide-react';
+import { CreditCard, House, Settings2Icon, User, User2 } from 'lucide-react';
 import { SignOutItem } from './sign-out-item';
 import {
   DropdownMenu,
@@ -102,31 +100,20 @@ export default function Navigation() {
           </NavigationMenu>
         </nav>
 
-        <div className='flex gap-x-5'>
+        <div className="flex gap-x-5">
           <Link href="/account">
-            <ProfileAvatar size="small"/>
+            <AccountIcon size="small" />
           </Link>
           <MobileMenu />
-        <HeaderActions />
+          <HeaderActions />
         </div>
       </div>
     </header>
   );
 }
 
-async function ProfileAvatar({size} : {size?: string}) {
-  // async function ProfileAvatar({ userId }: { userId: number }) {
-  // const profile = await getUserProfileUseCase(userId);
-
-  return (
-    <Avatar className={`${size == "small" ? "w-8 h-8 md:hidden" : "w-12 h-12"}`}>
-      <AvatarImage src="images/icons/avatar.jpg" />
-      {/* <AvatarImage src={getProfileImageFullUrl(profile)} /> */}
-      {/* <AvatarFallback>
-        {profile.displayName?.substring(0, 2).toUpperCase() ?? "AA"}
-      </AvatarFallback> */}
-    </Avatar>
-  );
+function AccountIcon({ size }: { size?: string }) {
+  return <User2 className={`${size == 'small' ? 'w-8 h-8 md:hidden' : 'w-12 h-12'}`} />;
 }
 
 async function HeaderActions() {
@@ -136,10 +123,10 @@ async function HeaderActions() {
   return (
     <>
       {isSignedIn ? (
-        <div className="hidden md:block">
+        <div className="hidden md:flex">
           <DropdownMenu>
             <DropdownMenuTrigger className=" focus:outline-none">
-              <ProfileAvatar />
+              <AccountIcon />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="mr-5">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
