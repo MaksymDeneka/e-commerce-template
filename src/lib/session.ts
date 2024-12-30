@@ -1,23 +1,20 @@
-import "server-only";
-import { createSession, generateSessionToken, validateRequest } from "@/auth";
-import { cache } from "react";
-import { cookies } from "next/headers";
-import { AuthenticationError } from "@/app/utils";
+import 'server-only';
+import { createSession, generateSessionToken, validateRequest } from '@/auth';
+import { cache } from 'react';
+import { cookies } from 'next/headers';
+import { AuthenticationError } from '@/app/utils';
 
+const SESSION_COOKIE_NAME = 'session';
 
-const SESSION_COOKIE_NAME = "session";
-
-export async function setSessionTokenCookie(
-  token: string,
-  expiresAt: Date
-): Promise<void> {
+export async function setSessionTokenCookie(token: string, expiresAt: Date): Promise<void> {
   const allCookies = await cookies();
-  await allCookies.set(SESSION_COOKIE_NAME, token, {
+	////await?
+  allCookies.set(SESSION_COOKIE_NAME, token, {
     httpOnly: true,
-    sameSite: "lax",
-    secure: process.env.NODE_ENV === "production",
+    sameSite: 'lax',
+    secure: process.env.NODE_ENV === 'production',
     expires: expiresAt,
-    path: "/",
+    path: '/',
   });
 }
 

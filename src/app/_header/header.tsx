@@ -1,6 +1,10 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { getCurrentUser } from '@/lib/session';
+import { isAdminUseCase } from '@/use-cases/users';
+import { SignOutItem } from './sign-out-item';
+import MobileMenu from './mobile-menu';
 import { Button } from '@/components/ui/button';
 import {
   NavigationMenu,
@@ -10,11 +14,8 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
-import { getCurrentUser } from '@/lib/session';
-import { Settings2Icon, Truck, User } from 'lucide-react';
-import { SignOutItem } from './sign-out-item';
 import {
-  DropdownMenu,
+	DropdownMenu,
   DropdownMenuContent,
   DropdownMenuGroup,
   DropdownMenuItem,
@@ -22,9 +23,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import MobileMenu from './mobile-menu';
+import { Settings2Icon, Truck, User } from 'lucide-react';
 
-export default function Navigation() {
+export function Navigation() {
   return (
     <header className="sticky top-0 bg-white flex justify-center items-center py-3 px-5 z-50">
       <div className="flex justify-between items-center max-w-screen-2xl w-full">
@@ -99,6 +100,7 @@ export default function Navigation() {
         </nav>
 
         <div className="flex gap-x-5">
+          <DashboardButton/>
           <Link href="/account">
             <AccountIcon size="small" />
           </Link>
@@ -161,5 +163,22 @@ async function HeaderActions() {
         </>
       )}
     </>
+  );
+}
+
+async function DashboardButton() {
+  const user = await getCurrentUser();
+  if (!user) {
+    return null;
+  }
+  const isAdmin = await isAdminUseCase(user.id);
+  return (
+    <div>
+      {isAdmin && (
+        <Button variant="secondary" asChild>
+          <Link href="/dashboard">Dashboard</Link>
+        </Button>
+      )}
+    </div>
   );
 }

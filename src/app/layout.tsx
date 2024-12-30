@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import './globals.css';
-import Navigation from './_header/header';
+import { Navigation } from './_header/header';
 import { Toaster } from '@/components/ui/toaster';
 
 const roboto = Roboto({

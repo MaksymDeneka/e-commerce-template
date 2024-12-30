@@ -1,9 +1,13 @@
 import { createUser, getUserByEmail, verifyPassword } from '@/data-access/users';
 import { LoginError, PublicError } from './errors';
-import { createAccount, createAccountViaGoogle } from '@/data-access/accounts';
+import { createAccount, createAccountViaGoogle, getAccountByUserId } from '@/data-access/accounts';
 import { GoogleUser } from '@/app/api/login/google/callback/route';
 import { UserId } from './types';
-import { createPersonalInfo, getPersonalInfo, updatePersonalInfo } from '@/data-access/personal-info';
+import {
+  createPersonalInfo,
+  getPersonalInfo,
+  updatePersonalInfo,
+} from '@/data-access/personal-info';
 import { createAddress, getAddress, updateAddress } from '@/data-access/addresses';
 
 export async function registerUserUseCase(email: string, password: string) {
@@ -57,6 +61,7 @@ export async function createGoogleUserUseCase(googleUser: GoogleUser) {
 // }
 
 export async function getPersonalInfoUseCase(userId: UserId) {
+
   const profile = await getPersonalInfo(userId);
   // Changed to return null instead of throwing error for profile check
   return profile;
@@ -103,4 +108,14 @@ export async function createAddressUseCase(
   postalCode: string,
 ) {
   await createAddress(userId, streetAddress, apartment, city, postalCode);
+}
+
+export async function isAdminUseCase(userId: UserId){
+	const accaunt = await getAccountByUserId(userId)
+
+	if(!accaunt){
+		throw new Error("No account found")
+	}
+	const isAdmin = accaunt.role === "admin"
+	return isAdmin
 }
