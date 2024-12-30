@@ -1,7 +1,7 @@
-"use client"
+'use client';
 
 import * as React from 'react';
-import { GalleryVerticalEnd, Heart, Inbox, Search, Truck } from 'lucide-react';
+import { GalleryVerticalEnd, Heart, Inbox, Truck } from 'lucide-react';
 
 import {
   Sidebar,
@@ -13,14 +13,13 @@ import {
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-
 const data = {
   navMain: [
-    {
-      title: 'Personal information',
-      url: '/account/profile',
-      icon: Search,
-    },
+    // {
+    //   title: 'Personal information',
+    //   url: '/account/profile',
+    //   icon: Search,
+    // },
     {
       title: 'Orders',
       url: '/account/orders',
@@ -41,7 +40,7 @@ const data = {
 };
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-	const pathname = usePathname();
+  const pathname = usePathname();
 
   return (
     <Sidebar variant="floating" className="mt-[4.5rem]" {...props}>
@@ -49,7 +48,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <SidebarMenu>
           <SidebarMenuItem>
             <SidebarMenuButton size="lg" asChild>
-              <Link href="/account">
+              <Link href="/account/profile">
                 <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
                   <GalleryVerticalEnd className="size-4" />
                 </div>

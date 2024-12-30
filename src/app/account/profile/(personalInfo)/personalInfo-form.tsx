@@ -5,7 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useServerAction } from 'zsa-react';
-import { updateProfileAction } from './actions';
+import { updatePersonalInfoAction } from '../actions';
 import {
   Form,
   FormControl,
@@ -26,25 +26,25 @@ import {
   DialogTrigger,
 } from '@/components/ui/dialog';
 import { useState } from 'react';
-import { Pen } from 'lucide-react';
+import { PencilIcon } from 'lucide-react';
 
-const updateProfileSchema = z.object({
+const updatePersonalInfoSchema = z.object({
   firstName: z.string().min(1),
   lastName: z.string().min(1),
   phoneNumber: z.string().min(1),
 });
 
-type ProfileUpdate = z.infer<typeof updateProfileSchema>;
+type PersonalInfoUpdate = z.infer<typeof updatePersonalInfoSchema>;
 
-export function ProfileForm(props: ProfileUpdate) {
+export function PersonalInfoForm(props: PersonalInfoUpdate) {
   const { firstName, lastName, phoneNumber } = props;
   const { toast } = useToast();
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
 
-  const form = useForm<ProfileUpdate>({
-    resolver: zodResolver(updateProfileSchema),
+  const form = useForm<PersonalInfoUpdate>({
+    resolver: zodResolver(updatePersonalInfoSchema),
     defaultValues: {
       firstName: firstName,
       lastName: lastName,
@@ -52,7 +52,7 @@ export function ProfileForm(props: ProfileUpdate) {
     },
   });
 
-  const { execute: updateProfile, isPending } = useServerAction(updateProfileAction, {
+  const { execute: updatePersonalInfo, isPending } = useServerAction(updatePersonalInfoAction, {
     onSuccess: () => {
       toast({
         title: 'Info Updated',
@@ -70,14 +70,16 @@ export function ProfileForm(props: ProfileUpdate) {
     },
   });
 
-  const onSubmit: SubmitHandler<z.infer<typeof updateProfileSchema>> = async (values) => {
-    await updateProfile(values);
+  const onSubmit: SubmitHandler<z.infer<typeof updatePersonalInfoSchema>> = async (values) => {
+    await updatePersonalInfo(values);
   };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className='focus:outline-none'>
-        <Pen className='w-4 h-4' />
+      <DialogTrigger className="relative focus:outline-none">
+        <div className="absolute -top-2 -right-2 flex items-center justify-center w-8 h-8 bg-white rounded-full">
+          <PencilIcon className="w-4 h-4" />
+        </div>
       </DialogTrigger>
       <DialogContent className="max-w-80">
         <DialogHeader>

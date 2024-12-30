@@ -73,4 +73,4 @@ export type User = typeof users.$inferSelect;
 export type Account = typeof accounts.$inferSelect
 export type Session = typeof sessions.$inferSelect;
 export type Profile = typeof profiles.$inferSelect;
-export type Addresse = typeof addresses.$inferSelect;
+export type Address = typeof addresses.$inferSelect;

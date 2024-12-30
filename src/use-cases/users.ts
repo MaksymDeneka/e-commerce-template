@@ -3,7 +3,8 @@ import { LoginError, PublicError } from './errors';
 import { createAccount, createAccountViaGoogle } from '@/data-access/accounts';
 import { GoogleUser } from '@/app/api/login/google/callback/route';
 import { UserId } from './types';
-import { createProfile, getProfile, updateProfile } from '@/data-access/profiles';
+import { createPersonalInfo, getPersonalInfo, updatePersonalInfo } from '@/data-access/personal-info';
+import { createAddress, getAddress, updateAddress } from '@/data-access/addresses';
 
 export async function registerUserUseCase(email: string, password: string) {
   const existingUser = await getUserByEmail(email);
@@ -44,8 +45,8 @@ export async function createGoogleUserUseCase(googleUser: GoogleUser) {
   return existingUser.id;
 }
 
-// export async function getProfileUseCase(userId: UserId) {
-//   const profile = await getProfile(userId);
+// export async function getPersonalInfoUseCase(userId: UserId) {
+//   const profile = await getPersonalInfo(userId);
 //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 //   if (!profile) {
 //     throw new PublicError("User not found");
@@ -55,26 +56,51 @@ export async function createGoogleUserUseCase(googleUser: GoogleUser) {
 //   return profile;
 // }
 
-export async function getProfileUseCase(userId: UserId) {
-  const profile = await getProfile(userId);
+export async function getPersonalInfoUseCase(userId: UserId) {
+  const profile = await getPersonalInfo(userId);
   // Changed to return null instead of throwing error for profile check
   return profile;
 }
 
-export async function updateProfileUseCase(
+export async function updatePersonalInfoUseCase(
   userId: UserId,
   firstName: string,
   lastName: string,
   phoneNumber: string,
 ) {
-  await updateProfile(userId, { firstName, lastName, phoneNumber });
+  await updatePersonalInfo(userId, { firstName, lastName, phoneNumber });
 }
 
-export async function createProfileUseCase(
+export async function createPersonalInfoUseCase(
   userId: UserId,
   firstName: string,
   lastName: string,
   phoneNumber: string,
 ) {
-  await createProfile(userId, firstName, lastName, phoneNumber);
+  await createPersonalInfo(userId, firstName, lastName, phoneNumber);
+}
+
+export async function getAddressUseCase(userId: UserId) {
+  const address = await getAddress(userId);
+  return address;
+}
+
+export async function updateAddressUseCase(
+  userId: UserId,
+  streetAddress: string,
+  apartment: string,
+  city: string,
+  postalCode: string,
+) {
+  await updateAddress(userId, { streetAddress, apartment, city, postalCode });
+}
+
+export async function createAddressUseCase(
+  userId: UserId,
+  streetAddress: string,
+  apartment: string,
+  city: string,
+  postalCode: string,
+) {
+  await createAddress(userId, streetAddress, apartment, city, postalCode);
 }
