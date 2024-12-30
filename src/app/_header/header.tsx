@@ -125,7 +125,7 @@ async function HeaderActions() {
       {isSignedIn ? (
         <div className="hidden md:flex">
           <DropdownMenu>
-            <DropdownMenuTrigger className=" focus:outline-none">
+            <DropdownMenuTrigger className="focus:outline-none">
               <AccountIcon />
             </DropdownMenuTrigger>
             <DropdownMenuContent className="mr-5">
