@@ -11,7 +11,7 @@ import {
   NavigationMenuTrigger,
 } from '@/components/ui/navigation-menu';
 import { getCurrentUser } from '@/lib/session';
-import { Settings2Icon, Truck, User, User2 } from 'lucide-react';
+import { Settings2Icon, Truck, User } from 'lucide-react';
 import { SignOutItem } from './sign-out-item';
 import {
   DropdownMenu,
@@ -111,7 +111,7 @@ export default function Navigation() {
 }
 
 function AccountIcon({ size }: { size?: string }) {
-  return <User2 className={`${size == 'small' ? 'md:hidden' : ''} w-8 h-8`} />;
+  return <User className={`${size == 'small' ? 'md:hidden' : ''} w-8 h-8`} />;
 }
 
 async function HeaderActions() {
