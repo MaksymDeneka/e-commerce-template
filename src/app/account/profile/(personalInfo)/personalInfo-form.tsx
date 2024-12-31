@@ -81,16 +81,14 @@ export function PersonalInfoForm(props: PersonalInfoUpdate) {
           <PencilIcon className="w-4 h-4" />
         </div>
       </DialogTrigger>
-      <DialogContent className="max-w-80">
+      <DialogContent className="max-w-96">
         <DialogHeader>
-          <DialogTitle>Fill in your info</DialogTitle>
+          <DialogTitle className="text-2xl">Fill in your info</DialogTitle>
           <DialogDescription></DialogDescription>
         </DialogHeader>
 
         <Form {...form}>
-          <form
-            onSubmit={form.handleSubmit(onSubmit)}
-            className="space-y-3 flex flex-col gap-2 max-w-72">
+          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 flex flex-col gap-2">
             <FormField
               control={form.control}
               name="firstName"
