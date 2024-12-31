@@ -21,6 +21,10 @@ export const signInAction = unauthenticatedAction
     await rateLimitByIp({ key: input.email, limit: 3, window: 10000 });
     const user = await signInUseCase(input.email, input.password);
     await setSession(user.id);
-    // revalidatePath('/', 'layout');
+
+    await new Promise((resolve) => setTimeout(resolve, 0));
+		//yakoho hoya tse pratsuye
+
+    revalidatePath('/', 'layout');
     redirect(afterLoginUrl);
   });
