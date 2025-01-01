@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { Roboto } from 'next/font/google';
 import './globals.css';
-import { Navigation } from './_header/header';
 import { Toaster } from '@/components/ui/toaster';
 
 const roboto = Roboto({
@@ -11,8 +10,8 @@ const roboto = Roboto({
 });
 
 export const metadata: Metadata = {
-  title: 'Top Dax',
-  description: 'TopDax e commerce',
+  title: 'EComm',
+  description: 'e-commerce',
 };
 
 export default function RootLayout({
@@ -23,7 +22,6 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${roboto.variable} antialiased`}>
-        <Navigation />
         {children}
         <Toaster />
       </body>

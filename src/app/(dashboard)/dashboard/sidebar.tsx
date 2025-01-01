@@ -1,13 +1,13 @@
-import { AppSidebar } from '@/components/account-sidebar';
+import { DashboardSideBar } from '@/components/dashboard-sidebar';
 import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 
-export default function AccoutSideBar({
+export default function SideBar({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <div className="flex justify-center sidebar-content-h overflow-hidden">
+    <div className="flex justify-center">
       <SidebarProvider
         className="max-w-screen-2xl"
         style={
@@ -15,13 +15,13 @@ export default function AccoutSideBar({
             '--sidebar-width': '19rem',
           } as React.CSSProperties
         }>
-        <AppSidebar />
+        <DashboardSideBar />
         <SidebarInset className="">
           <header className="flex h-16 shrink-0 items-center gap-2 px-4">
             <SidebarTrigger className="-ml-1" />
           </header>
           <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-          {children}
+            {children}
             {/* <div className="grid auto-rows-min gap-4 md:grid-cols-3">
               <div className="aspect-video rounded-xl bg-muted/50" />
               <div className="aspect-video rounded-xl bg-muted/50" />

@@ -39,11 +39,11 @@ const data = {
   ],
 };
 
-export function AccountSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+export function DashboardSideBar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
 
   return (
-    <Sidebar variant="floating" className="mt-[4.5rem]" {...props}>
+    <Sidebar variant="floating" className="" {...props}>
       <SidebarHeader>
         <SidebarMenu>
           <SidebarMenuItem>
@@ -53,7 +53,7 @@ export function AccountSidebar({ ...props }: React.ComponentProps<typeof Sidebar
                   <GalleryVerticalEnd className="size-4" />
                 </div>
                 <div className="leading-none">
-                  <span className="font-semibold text-lg">My account</span>
+                  <span className="font-semibold text-lg">Dashboard</span>
                 </div>
               </Link>
             </SidebarMenuButton>

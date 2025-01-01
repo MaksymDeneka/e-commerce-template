@@ -1,7 +1,7 @@
 import { createUser, getUserByEmail, verifyPassword } from '@/data-access/users';
 import { LoginError, PublicError } from './errors';
 import { createAccount, createAccountViaGoogle, getAccountByUserId } from '@/data-access/accounts';
-import { GoogleUser } from '@/app/api/login/google/callback/route';
+import { GoogleUser } from '@/app/(main)/api/login/google/callback/route';
 import { UserId } from './types';
 import {
   createPersonalInfo,
