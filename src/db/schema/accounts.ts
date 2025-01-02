@@ -1,8 +1,6 @@
-import { index, pgEnum, pgTable, serial, text } from 'drizzle-orm/pg-core';
+import { index, pgTable, serial, text } from 'drizzle-orm/pg-core';
 import users from './users';
-
-const roleEnum = pgEnum('role', ['user', 'admin']);
-const accountTypeEnum = pgEnum('type', ['email', 'google']);
+import { accountTypeEnum, roleEnum } from './enums';
 
 export const accounts = pgTable(
   'gf_accounts',
