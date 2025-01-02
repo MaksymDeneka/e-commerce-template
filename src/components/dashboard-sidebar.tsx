@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { GalleryVerticalEnd, Heart, Inbox, Truck, User } from 'lucide-react';
+import { GalleryVerticalEnd, Heart, Inbox, LayoutGrid, User } from 'lucide-react';
 
 import {
   Sidebar,
@@ -16,20 +16,11 @@ import { usePathname } from 'next/navigation';
 const data = {
   navMain: [
     {
-      title: 'Personal information',
-      url: '/account/profile',
-      icon: User,
+      title: 'Categories',
+      url: '/dashboard/categories',
+      icon: LayoutGrid,
     },
-    {
-      title: 'Orders',
-      url: '/account/orders',
-      icon: Truck,
-    },
-    {
-      title: 'Wishlist',
-      url: '#',
-      icon: Heart,
-    },
+
     {
       title: 'Inbox',
       url: '#',

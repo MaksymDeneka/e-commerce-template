@@ -35,16 +35,16 @@ const updateAddressSchema = z.object({
   postalCode: z.string().min(1),
 });
 
-type ProfileUpdate = z.infer<typeof updateAddressSchema>;
+type AddressUpdate = z.infer<typeof updateAddressSchema>;
 
-export function AddressForm(props: ProfileUpdate) {
+export function AddressForm(props: AddressUpdate) {
   const { streetAddress, apartment, city, postalCode } = props;
   const { toast } = useToast();
   const router = useRouter();
 
   const [open, setOpen] = useState(false);
 
-  const form = useForm<ProfileUpdate>({
+  const form = useForm<AddressUpdate>({
     resolver: zodResolver(updateAddressSchema),
     defaultValues: {
       streetAddress: streetAddress,
