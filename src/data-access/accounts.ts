@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 import { hashPassword } from './utils';
 import { database } from '@/db';
-import { accounts } from '@/db/schema';
+import { accounts } from '@/db/schema/accounts';
 import { eq } from 'drizzle-orm';
 import { UserId } from '@/use-cases/types';
 

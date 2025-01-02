@@ -5,7 +5,8 @@ import { encodeBase32LowerCaseNoPadding, encodeHexLowerCase } from '@oslojs/enco
 import { sha256 } from '@oslojs/crypto/sha2';
 import { getSessionToken } from './lib/session';
 import { UserId } from './use-cases/types';
-import { Session, sessions, User, users } from './db/schema';
+import { User, users } from '@/db/schema/users';
+import { Session, sessions} from '@/db/schema/sessions'
 import { eq } from 'drizzle-orm';
 
 const SESSION_REFRESH_INTERVAL_MS = 1000 * 60 * 60 * 24 * 15;

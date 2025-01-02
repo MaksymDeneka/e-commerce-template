@@ -1,6 +1,6 @@
 import { eq } from 'drizzle-orm';
 import { database } from '@/db';
-import { users } from '@/db/schema';
+import { users } from '@/db/schema/users';
 import { getAccountByUserId } from '@/data-access/accounts';
 import { hashPassword } from './utils';
 
