@@ -7,8 +7,14 @@ import { Switch } from '@/components/ui/switch';
 import { Category } from '@/db/schema/categories';
 import { useToast } from '@/hooks/use-toast';
 import { toggleCategoryStatusAction } from './actions';
+import { Button } from '@/components/ui/button';
 
-export function CategoryCard({ category }: { category: Category }) {
+interface CategoryCardProps {
+  category: Category;
+  onEdit: () => void;
+}
+
+export function CategoryCard({ category, onEdit }: CategoryCardProps) {
   const [isActive, setIsActive] = useState(category.isActive);
   const { toast } = useToast();
 
@@ -39,16 +45,19 @@ export function CategoryCard({ category }: { category: Category }) {
         <CardDescription>{category.description}</CardDescription>
       </CardHeader>
       <CardContent>
-        <form action={handleToggle}>
-          <div className="flex items-center space-x-2">
-            <Switch
-              id={`category-${category.id}`}
-              checked={isActive}
-              onCheckedChange={handleToggle}
-            />
-            <label htmlFor={`category-${category.id}`}>{isActive ? 'Active' : 'Inactive'}</label>
-          </div>
-        </form>
+        <div className="flex items-center justify-between">
+          <form action={handleToggle}>
+            <div className="flex items-center space-x-2">
+              <Switch
+                id={`category-${category.id}`}
+                checked={isActive}
+                onCheckedChange={handleToggle}
+              />
+              <label htmlFor={`category-${category.id}`}>{isActive ? 'Active' : 'Inactive'}</label>
+            </div>
+          </form>
+          <Button onClick={onEdit}>Edit</Button>
+        </div>
       </CardContent>
     </Card>
   );

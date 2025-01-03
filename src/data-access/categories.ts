@@ -1,5 +1,6 @@
 import { database } from '@/db';
 import { categories } from '@/db/schema';
+import { Category } from '@/db/schema/categories';
 import { eq } from 'drizzle-orm';
 
 export async function createCategory(
@@ -21,7 +22,7 @@ export async function createCategory(
 }
 
 export async function getCategories() {
-	await new Promise(resolve => setTimeout(resolve, 2000))
+  // await new Promise(resolve => setTimeout(resolve, 2000))
   return await database.select().from(categories).orderBy(categories.name);
 }
 
@@ -30,4 +31,15 @@ export async function toggleCategoryStatus(id: number, isActive: boolean) {
     .update(categories)
     .set({ isActive: isActive, updatedAt: new Date() })
     .where(eq(categories.id, id));
+}
+
+export async function updateCategory(id: number, data: Partial<Category>) {
+  await database
+    .update(categories)
+    .set({ ...data, updatedAt: new Date() })
+    .where(eq(categories.id, id));
+}
+
+export async function deleteCategory(id: number) {
+  await database.delete(categories).where(eq(categories.id, id));
 }

@@ -1,4 +1,11 @@
-import { createCategory, getCategories, toggleCategoryStatus } from '@/data-access/categories';
+import {
+  createCategory,
+  deleteCategory,
+  getCategories,
+  toggleCategoryStatus,
+  updateCategory,
+} from '@/data-access/categories';
+import { Category } from '@/db/schema/categories';
 
 export async function createCategoryUseCase(
   name: string,
@@ -16,4 +23,17 @@ export async function getCategoriesUseCase() {
 
 export async function toggleCategoryStatusUseCase(id: number, isActive: boolean) {
   await toggleCategoryStatus(id, isActive);
+}
+
+export async function updateCategoryUseCase(
+  id: number,
+  name: string,
+  slug: string,
+  description?: string,
+) {
+  await updateCategory(id, { name, slug, description });
+}
+
+export async function deleteCategoryUseCase(id: number) {
+  await deleteCategory(id);
 }

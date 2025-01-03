@@ -31,22 +31,22 @@ import { useServerAction } from 'zsa-react';
 import { createCategoryAction } from './actions';
 import { Button } from '@/components/ui/button';
 
-const CategorySchema = z.object({
+const CreateCategorySchema = z.object({
   name: z.string().min(1, 'Name is required'),
   slug: z.string().min(1, 'Slug is required'),
   description: z.string().optional(),
   isActive: z.boolean(),
 });
 
-type CategoryFormValues = z.infer<typeof CategorySchema>;
+type CreateCategoryFormValues = z.infer<typeof CreateCategorySchema>;
 
 export function CreateCategoryForm() {
   const [open, setOpen] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
 
-  const form = useForm<CategoryFormValues>({
-    resolver: zodResolver(CategorySchema),
+  const form = useForm<CreateCategoryFormValues>({
+    resolver: zodResolver(CreateCategorySchema),
     defaultValues: {
       name: '',
       slug: '',
@@ -72,7 +72,7 @@ export function CreateCategoryForm() {
     },
   });
 
-  const onSubmit: SubmitHandler<z.infer<typeof CategorySchema>> = async (values) => {
+  const onSubmit: SubmitHandler<CreateCategoryFormValues> = async (values) => {
     await createCategory(values);
   };
 
