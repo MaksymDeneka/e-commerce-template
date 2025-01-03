@@ -1,7 +1,7 @@
 'use server';
 
 import { authenticatedAction } from '@/lib/safe-action';
-import { createCategoryUseCase } from '@/use-cases/categories';
+import { createCategoryUseCase, toggleCategoryStatusUseCase } from '@/use-cases/categories';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
@@ -19,3 +19,14 @@ export const createCategoryAction = authenticatedAction
     await createCategoryUseCase(input.name, input.slug, input.isActive, input.description);
     revalidatePath('/dashboar/categories');
   });
+
+	export const toggleCategoryStatusAction = authenticatedAction
+	.createServerAction()
+	.input(z.object({
+		id: z.number(),
+		isActive: z.boolean(),
+	}),
+)
+.handler(async ({input}) => {
+	await toggleCategoryStatusUseCase(input.id, input.isActive);
+})

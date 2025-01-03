@@ -1,4 +1,4 @@
-import { createCategory, getCategories } from "@/data-access/categories";
+import { createCategory, getCategories, toggleCategoryStatus } from '@/data-access/categories';
 
 export async function createCategoryUseCase(
   name: string,
@@ -6,10 +6,14 @@ export async function createCategoryUseCase(
   isActive: boolean,
   description?: string,
 ) {
-  await createCategory(name, slug, isActive, description );
+  await createCategory(name, slug, isActive, description);
 }
 
 export async function getCategoriesUseCase() {
-	const categories = await getCategories();
-	return categories;
+  const categories = await getCategories();
+  return categories;
+}
+
+export async function toggleCategoryStatusUseCase(id: number, isActive: boolean) {
+  await toggleCategoryStatus(id, isActive);
 }
