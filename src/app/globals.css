@@ -87,13 +87,6 @@
   }
 }
 
-.sidebar-content-max-h {
-  max-height: calc(100svh - 78px);
-}
-.sidebar-content-min-h {
-  min-height: calc(100svh - 78px);
-}
-
 .sidebar-content-h {
   height: calc(100svh - 78px);
 }

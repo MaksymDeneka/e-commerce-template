@@ -23,7 +23,7 @@ export function CategoryCard({ category }: { category: Category }) {
       });
     } catch (error) {
       console.error('Failed to update category status:', error);
-      setIsActive(!newStatus); // Revert the state if the action fails
+      setIsActive(!newStatus);
       toast({
         title: 'Error',
         description: 'Failed to update category status. Please try again.',
@@ -57,42 +57,20 @@ export function CategoryCard({ category }: { category: Category }) {
 export function CategoryCardSkeleton() {
   return (
     <>
-      <Card className="animate-pulse">
-        <CardHeader>
-          <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
-          <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center space-x-2">
-            <div className="h-6 w-11 bg-gray-200 rounded"></div>
-            <div className="h-4 bg-gray-200 rounded w-16"></div>
-          </div>
-        </CardContent>
-      </Card>
-      <Card className="animate-pulse">
-        <CardHeader>
-          <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
-          <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center space-x-2">
-            <div className="h-6 w-11 bg-gray-200 rounded"></div>
-            <div className="h-4 bg-gray-200 rounded w-16"></div>
-          </div>
-        </CardContent>
-      </Card>
-      <Card className="animate-pulse">
-        <CardHeader>
-          <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
-          <div className="h-4 bg-gray-200 rounded w-1/2"></div>
-        </CardHeader>
-        <CardContent>
-          <div className="flex items-center space-x-2">
-            <div className="h-6 w-11 bg-gray-200 rounded"></div>
-            <div className="h-4 bg-gray-200 rounded w-16"></div>
-          </div>
-        </CardContent>
-      </Card>
+      {[...Array(3)].map((_, i) => (
+        <Card key={i} className="animate-pulse">
+          <CardHeader>
+            <div className="h-6 bg-gray-200 rounded w-3/4 mb-2"></div>
+            <div className="h-4 bg-gray-200 rounded w-1/2"></div>
+          </CardHeader>
+          <CardContent>
+            <div className="flex items-center space-x-2">
+              <div className="h-6 w-11 bg-gray-200 rounded"></div>
+              <div className="h-4 bg-gray-200 rounded w-16"></div>
+            </div>
+          </CardContent>
+        </Card>
+      ))}
     </>
   );
 }

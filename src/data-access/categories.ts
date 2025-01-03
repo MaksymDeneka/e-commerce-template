@@ -21,7 +21,6 @@ export async function createCategory(
 }
 
 export async function getCategories() {
-	await new Promise(resolve => setTimeout(resolve, 2000))
   return await database.select().from(categories).orderBy(categories.name);
 }
 

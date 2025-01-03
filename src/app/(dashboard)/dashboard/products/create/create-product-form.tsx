@@ -78,40 +78,6 @@ export function CreateProductForm() {
     },
   });
 
-  // async function onSubmit(data: ProductFormValues) {
-  //   setIsLoading(true);
-
-  //   try {
-  //     const response = await fetch('/api/products', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify(data),
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error('Failed to create product');
-  //     }
-
-  //     toast({
-  //       title: 'Product created',
-  //       description: 'Your new product has been successfully created.',
-  //     });
-
-  //     router.push('/admin/products');
-  //   } catch (error) {
-  //     console.error('Error creating product:', error);
-  //     toast({
-  //       title: 'Error',
-  //       description: 'There was a problem creating your product. Please try again.',
-  //       variant: 'destructive',
-  //     });
-  //   } finally {
-  //     setIsLoading(false);
-  //   }
-  // }
-
   const onSubmit: SubmitHandler<z.infer<typeof productSchema>> = async (values) => {
     await createProduct(values);
   };
@@ -241,7 +207,6 @@ export function CreateProductForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
-                  {/* TODO: Fetch categories from API and map them here */}
                   <SelectItem value="1">Category 1</SelectItem>
                   <SelectItem value="2">Category 2</SelectItem>
                   <SelectItem value="3">Category 3</SelectItem>
