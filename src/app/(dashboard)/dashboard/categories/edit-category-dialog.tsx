@@ -43,9 +43,18 @@ interface EditCategoryDialogProps {
   category: Category | null;
   isOpen: boolean;
   onClose: () => void;
+  onUpdate: (category: any) => void;
+  //ANY type here
+  onDelete: (categoryId: number) => void;
 }
 
-export function EditCategoryDialog({ category, isOpen, onClose }: EditCategoryDialogProps) {
+export function EditCategoryDialog({
+  category,
+  isOpen,
+  onClose,
+  onUpdate,
+  onDelete,
+}: EditCategoryDialogProps) {
   const router = useRouter();
   // const [isDeleting, setIsDeleting] = useState(false);
   const { toast } = useToast();
@@ -66,7 +75,7 @@ export function EditCategoryDialog({ category, isOpen, onClose }: EditCategoryDi
         title: 'Category info updated',
         description: 'Category info has been successfully updated.',
       });
-      router.refresh();
+      // router.refresh();
       onClose();
       // setOpen(false);
     },
@@ -95,11 +104,13 @@ export function EditCategoryDialog({ category, isOpen, onClose }: EditCategoryDi
   });
 
   const onSubmit: SubmitHandler<UpdateCategoryFormValues> = async (values) => {
-    await updateCategory(values);
+    const updatedCategory = await updateCategory(values);
+    onUpdate(updatedCategory);
   };
-  const onDelete = async () => {
+  const onDeleteInternal = async () => {
     if (!category) return;
     await deleteCategory({ id: category.id });
+    onDelete(category.id);
   };
 
   // async function onSubmit(data: FormData) {
@@ -185,7 +196,7 @@ export function EditCategoryDialog({ category, isOpen, onClose }: EditCategoryDi
                 Save changes
               </LoaderButton>
               {category && (
-                <Button type="button" variant="destructive" onClick={onDelete}>
+                <Button type="button" variant="destructive" onClick={onDeleteInternal}>
                   {/* {isPending ? 'Deleting...' : 'Delete'} */}
                   Delete
                 </Button>

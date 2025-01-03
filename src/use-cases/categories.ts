@@ -31,7 +31,8 @@ export async function updateCategoryUseCase(
   slug: string,
   description?: string,
 ) {
-  await updateCategory(id, { name, slug, description });
+  const updatedCategory = await updateCategory(id, { name, slug, description });
+	return updateCategory;
 }
 
 export async function deleteCategoryUseCase(id: number) {

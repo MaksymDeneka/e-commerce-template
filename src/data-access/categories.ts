@@ -34,10 +34,12 @@ export async function toggleCategoryStatus(id: number, isActive: boolean) {
 }
 
 export async function updateCategory(id: number, data: Partial<Category>) {
-  await database
+  const updatedCategory = await database
     .update(categories)
     .set({ ...data, updatedAt: new Date() })
-    .where(eq(categories.id, id));
+    .where(eq(categories.id, id))
+    .returning();
+  return updatedCategory[0];
 }
 
 export async function deleteCategory(id: number) {

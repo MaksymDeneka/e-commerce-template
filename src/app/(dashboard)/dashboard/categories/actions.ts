@@ -1,7 +1,12 @@
 'use server';
 
 import { authenticatedAction } from '@/lib/safe-action';
-import { createCategoryUseCase, deleteCategoryUseCase, toggleCategoryStatusUseCase, updateCategoryUseCase } from '@/use-cases/categories';
+import {
+  createCategoryUseCase,
+  deleteCategoryUseCase,
+  toggleCategoryStatusUseCase,
+  updateCategoryUseCase,
+} from '@/use-cases/categories';
 import { revalidatePath } from 'next/cache';
 import { z } from 'zod';
 
@@ -43,7 +48,8 @@ export const updateCategoryAction = authenticatedAction
     }),
   )
   .handler(async ({ input }) => {
-    await updateCategoryUseCase(input.id, input.name, input.slug, input.description);
+    const updatedCategory = await updateCategoryUseCase(input.id, input.name, input.slug, input.description);
+		return updatedCategory;
   });
 
 export const deleteCategoryAction = authenticatedAction
