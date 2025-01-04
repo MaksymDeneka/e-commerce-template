@@ -8,6 +8,16 @@ import { Category } from '@/db/schema/categories';
 import { useToast } from '@/hooks/use-toast';
 import { toggleCategoryStatusAction } from './actions';
 import { EditCategoryForm } from './update-category-form';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
+import { EllipsisVerticalIcon } from 'lucide-react';
 
 export function CategoryCard({ category }: { category: Category }) {
   const [isActive, setIsActive] = useState(category.isActive);
@@ -35,9 +45,11 @@ export function CategoryCard({ category }: { category: Category }) {
 
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="relative">
         <CardTitle>{category.name}</CardTitle>
         <CardDescription>{category.description}</CardDescription>
+
+        <EditCategoryForm category={category} />
       </CardHeader>
       <CardContent>
         <div className="flex justify-between items-center">
@@ -51,7 +63,6 @@ export function CategoryCard({ category }: { category: Category }) {
               <label htmlFor={`category-${category.id}`}>{isActive ? 'Active' : 'Inactive'}</label>
             </div>
           </form>
-          <EditCategoryForm category={category} />
         </div>
       </CardContent>
     </Card>

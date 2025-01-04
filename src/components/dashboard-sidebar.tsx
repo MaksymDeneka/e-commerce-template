@@ -20,7 +20,11 @@ const data = {
       url: '/dashboard/categories',
       icon: LayoutGrid,
     },
-
+    {
+      title: 'Products',
+      url: '/dashboard/products',
+      icon: LayoutGrid,
+    },
     {
       title: 'Inbox',
       url: '#',

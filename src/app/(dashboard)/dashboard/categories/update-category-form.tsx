@@ -27,6 +27,7 @@ import {
   FormMessage,
 } from '@/components/ui/form';
 import { Category, NewCategory } from '@/db/schema/categories';
+import { PencilIcon } from 'lucide-react';
 
 type UpdateCategoryInfoFormValues = z.infer<typeof UpdateCategoryInfoSchema>;
 
@@ -78,8 +79,10 @@ export function EditCategoryForm({ category }: EditCategoryFormProps) {
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="outline">Edit</Button>
+      <DialogTrigger>
+        <div className="absolute top-3 right-3 flex items-center justify-center w-7 h-7 bg-gray-100 rounded-full">
+          <PencilIcon className="w-4 h-4" />
+        </div>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
