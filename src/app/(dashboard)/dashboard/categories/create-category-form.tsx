@@ -25,18 +25,12 @@ import { useToast } from '@/hooks/use-toast';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { useServerAction } from 'zsa-react';
 import { createCategoryAction } from './actions';
 import { Button } from '@/components/ui/button';
-
-const CreateCategorySchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  slug: z.string().min(1, 'Slug is required'),
-  description: z.string().optional(),
-  isActive: z.boolean(),
-});
+import { CreateCategorySchema } from './validation';
 
 type CreateCategoryFormValues = z.infer<typeof CreateCategorySchema>;
 
@@ -55,7 +49,7 @@ export function CreateCategoryForm() {
     },
   });
 
-  const { execute: createCategory, isPending } = useServerAction(createCategoryAction, {
+  const { execute, isPending } = useServerAction(createCategoryAction, {
     onSuccess: () => {
       toast({
         title: 'Category created',
@@ -72,9 +66,9 @@ export function CreateCategoryForm() {
     },
   });
 
-  const onSubmit: SubmitHandler<CreateCategoryFormValues> = async (values) => {
-    await createCategory(values);
-  };
+  // const onSubmit: SubmitHandler<CreateCategoryFormValues> = async (values) => {
+  //   await createCategory(values);
+  // };
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -88,7 +82,11 @@ export function CreateCategoryForm() {
         </DialogHeader>
 
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-3 flex flex-col gap-2">
+          <form
+            onSubmit={form.handleSubmit((values) => {
+              execute(values).then(() => {});
+            })}
+            className="space-y-3 flex flex-col gap-2">
             <FormField
               control={form.control}
               name="name"
