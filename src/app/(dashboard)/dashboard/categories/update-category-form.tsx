@@ -85,7 +85,7 @@ export function EditCategoryForm({ category }: EditCategoryFormProps) {
           <PencilIcon className="w-4 h-4" />
         </div>
       </DialogTrigger>
-      <DialogContent className='max-w-md'>
+      <DialogContent className='max-w-96'>
         <DialogHeader>
           <DialogTitle>Edit Category</DialogTitle>
           <DialogDescription />

@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { GalleryVerticalEnd, Heart, Inbox, LayoutGrid, User } from 'lucide-react';
+import { BoxIcon, ChevronRight, GalleryVerticalEnd, Heart, Inbox, LayoutGrid, SquareTerminal, User } from 'lucide-react';
 
 import {
   Sidebar,
@@ -9,20 +9,19 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarMenuSub,
+  SidebarMenuSubButton,
+  SidebarMenuSubItem,
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from './ui/collapsible';
 
 const data = {
-  navMain: [
+  navSingle: [
     {
       title: 'Categories',
       url: '/dashboard/categories',
-      icon: LayoutGrid,
-    },
-    {
-      title: 'Products',
-      url: '/dashboard/products',
       icon: LayoutGrid,
     },
     {
@@ -32,7 +31,30 @@ const data = {
       badge: '10',
     },
   ],
+	navCollapsible: [
+    {
+      title: 'Products',
+      url: '#',
+      icon: BoxIcon,
+      isActive: true,
+      items: [
+        {
+          title: 'Create',
+          url: '/dashboard/products/create',
+        },
+        {
+          title: 'Starred',
+          url: '#',
+        },
+        {
+          title: 'Settings',
+          url: '#',
+        },
+      ],
+    },
+  ],
 };
+
 
 export function DashboardSideBar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const pathname = usePathname();
@@ -55,7 +77,7 @@ export function DashboardSideBar({ ...props }: React.ComponentProps<typeof Sideb
           </SidebarMenuItem>
         </SidebarMenu>
         <SidebarMenu>
-          {data.navMain.map((item) => (
+          {data.navSingle.map((item) => (
             <SidebarMenuItem key={item.title}>
               <SidebarMenuButton asChild isActive={pathname == item.url}>
                 <Link href={item.url}>
@@ -64,6 +86,36 @@ export function DashboardSideBar({ ...props }: React.ComponentProps<typeof Sideb
                 </Link>
               </SidebarMenuButton>
             </SidebarMenuItem>
+          ))}
+          {data.navCollapsible.map((item) => (
+            <Collapsible
+              key={item.title}
+              asChild
+              defaultOpen={item.isActive}
+              className="group/collapsible">
+              <SidebarMenuItem>
+                <CollapsibleTrigger asChild>
+                  <SidebarMenuButton tooltip={item.title}>
+                    {item.icon && <item.icon />}
+                    <span>{item.title}</span>
+                    <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
+                  </SidebarMenuButton>
+                </CollapsibleTrigger>
+                <CollapsibleContent>
+                  <SidebarMenuSub>
+                    {item.items?.map((subItem) => (
+                      <SidebarMenuSubItem key={subItem.title}>
+                        <SidebarMenuSubButton asChild>
+                          <a href={subItem.url}>
+                            <span>{subItem.title}</span>
+                          </a>
+                        </SidebarMenuSubButton>
+                      </SidebarMenuSubItem>
+                    ))}
+                  </SidebarMenuSub>
+                </CollapsibleContent>
+              </SidebarMenuItem>
+            </Collapsible>
           ))}
         </SidebarMenu>
       </SidebarHeader>
