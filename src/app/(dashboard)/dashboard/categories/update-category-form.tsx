@@ -28,6 +28,7 @@ import {
 } from '@/components/ui/form';
 import { Category, NewCategory } from '@/db/schema/categories';
 import { PencilIcon } from 'lucide-react';
+import { Separator } from '@/components/ui/separator';
 
 type UpdateCategoryInfoFormValues = z.infer<typeof UpdateCategoryInfoSchema>;
 
@@ -84,7 +85,7 @@ export function EditCategoryForm({ category }: EditCategoryFormProps) {
           <PencilIcon className="w-4 h-4" />
         </div>
       </DialogTrigger>
-      <DialogContent>
+      <DialogContent className='max-w-md'>
         <DialogHeader>
           <DialogTitle>Edit Category</DialogTitle>
           <DialogDescription />
@@ -134,19 +135,24 @@ export function EditCategoryForm({ category }: EditCategoryFormProps) {
                 </FormItem>
               )}
             />
-            <div className="flex justify-between">
-              <LoaderButton
-                variant="destructive"
-                onClick={() => {
-                  deleteCategory({ categoryId: category.id });
-                }}
-                isLoading={isDeleting}
-                type="button">
-                Delete
-              </LoaderButton>
-              <LoaderButton type="submit" isLoading={isUpdating}>
+            {/* <div className="flex justify-between"> */}
+            <div>
+              <LoaderButton type="submit" isLoading={isUpdating} className='w-full mb-10'>
                 Save changes
               </LoaderButton>
+              <Separator />
+              <div className="flex justify-center rounded-lg border border-red-500 p-2 mt-10">
+                <LoaderButton
+                  variant="destructive"
+                  onClick={() => {
+                    deleteCategory({ categoryId: category.id });
+                  }}
+                  isLoading={isDeleting}
+                  type="button"
+                  className="w-full">
+                  Delete category
+                </LoaderButton>
+              </div>
             </div>
           </form>
         </Form>
