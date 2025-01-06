@@ -6,7 +6,6 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { deleteCategoryAction, updateCategoryInfoAction } from './actions';
 import { useServerAction } from 'zsa-react';
-import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { LoaderButton } from '@/components/loader-button';
@@ -26,19 +25,13 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form';
-import { Category, NewCategory } from '@/db/schema/categories';
+import { Category } from '@/db/schema/categories';
 import { PencilIcon } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 
 type UpdateCategoryInfoFormValues = z.infer<typeof UpdateCategoryInfoSchema>;
 
 interface EditCategoryFormProps {
-  // category: {
-  //   id: number;
-  //   name: string;
-  //   slug: string;
-  //   description?: string;
-  // };
   category: Category;
 }
 
@@ -85,7 +78,7 @@ export function EditCategoryForm({ category }: EditCategoryFormProps) {
           <PencilIcon className="w-4 h-4" />
         </div>
       </DialogTrigger>
-      <DialogContent className='max-w-96'>
+      <DialogContent className="max-w-96">
         <DialogHeader>
           <DialogTitle>Edit Category</DialogTitle>
           <DialogDescription />
@@ -135,9 +128,8 @@ export function EditCategoryForm({ category }: EditCategoryFormProps) {
                 </FormItem>
               )}
             />
-            {/* <div className="flex justify-between"> */}
             <div>
-              <LoaderButton type="submit" isLoading={isUpdating} className='w-full mb-10'>
+              <LoaderButton type="submit" isLoading={isUpdating} className="w-full mb-10">
                 Save changes
               </LoaderButton>
               <Separator />

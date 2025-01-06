@@ -1,12 +1,9 @@
 'use client';
 
-// import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { useToast } from '@/hooks/use-toast';
 import { z } from 'zod';
-
-import { Button } from '@/components/ui/button';
 import {
   Form,
   FormControl,
@@ -28,28 +25,21 @@ import {
 } from '@/components/ui/select';
 import { useServerAction } from 'zsa-react';
 import { LoaderButton } from '@/components/loader-button';
+import { Category } from '@/db/schema/categories';
+import { createProductAction } from '../actions';
+import { CreatePoductSchema } from '../validation';
 
-const productSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  slug: z.string().min(1, 'Slug is required'),
-  description: z.string().optional(),
-  price: z.number().min(0, 'Price must be a positive number'),
-  compareAtPrice: z.number().min(0, 'Compare at price must be a positive number').optional(),
-  quantity: z.number().int().min(0, 'Quantity must be a non-negative integer'),
-  categoryId: z.number().int().positive('Category is required'),
-  isPublished: z.boolean(),
-  // metadata: z.record(z.string(), z.any()).optional(),
-});
+type ProductFormValues = z.infer<typeof CreatePoductSchema>;
 
-type ProductFormValues = z.infer<typeof productSchema>;
+interface CreateProductFormProps {
+  categories: Category[];
+}
 
-export function CreateProductForm() {
-  // const router = useRouter();
-
+export function CreateProductForm({ categories }: CreateProductFormProps) {
   const { toast } = useToast();
 
   const form = useForm<ProductFormValues>({
-    resolver: zodResolver(productSchema),
+    resolver: zodResolver(CreatePoductSchema),
     defaultValues: {
       name: '',
       slug: '',
@@ -67,18 +57,19 @@ export function CreateProductForm() {
     onSuccess: () => {
       toast({
         title: 'Product created',
-        description: 'Your new product has been successfully created.',
+        description: 'New product has been successfully created.',
       });
+      form.reset();
     },
     onError: ({ err }) => {
       toast({
         title: 'Error',
-        description: err.message || 'There was a problem creating your product. Please try again.',
+        description: err.message || 'There was a problem creating a product. Please try again.',
       });
     },
   });
 
-  const onSubmit: SubmitHandler<z.infer<typeof productSchema>> = async (values) => {
+  const onSubmit: SubmitHandler<ProductFormValues> = async (values) => {
     await createProduct(values);
   };
 
@@ -207,9 +198,15 @@ export function CreateProductForm() {
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
+                  {categories.map((category) => (
+                    <SelectItem key={category.id} value={category.id.toString()}>
+                      {category.name}
+                    </SelectItem>
+                  ))}
+                  {/* 
                   <SelectItem value="1">Category 1</SelectItem>
                   <SelectItem value="2">Category 2</SelectItem>
-                  <SelectItem value="3">Category 3</SelectItem>
+                  <SelectItem value="3">Category 3</SelectItem> */}
                 </SelectContent>
               </Select>
               <FormMessage />
